@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fitness merge</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Fitness merge</h1>
+        <p class="sub">
+          Import folder: <code id="import-dir">…</code> · Strava callback:
+          <code id="strava-uri">…</code>
+        </p>
+      </div>
+      <a class="docs-link" href="/docs" target="_blank" rel="noopener">API docs</a>
+    </header>
+
+    <main>
+      <div id="status"></div>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Summary</h2>
+          <div class="stats">
+            <span>Imports: <strong id="stat-imports">—</strong></span>
+            <span>Merged: <strong id="stat-canonical">—</strong></span>
+            <span>Strava: <strong id="stat-strava">—</strong></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Files</h2>
+          <div class="row">
+            <button type="button" id="btn-scan">Scan import folder</button>
+            <label class="row"
+              ><span>Upload</span>
+              <input type="file" id="file-input" accept=".fit,.gpx,.tcx,application/octet-stream" />
+            </label>
+            <button type="button" class="secondary" id="btn-upload">Upload</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Merge</h2>
+          <p style="margin: 0 0 0.5rem; font-size: 0.88rem; color: var(--muted)">
+            Re-cluster all imports into canonical workouts (run after new files or Strava sync).
+          </p>
+          <button type="button" id="btn-merge">Rebuild merged activities</button>
+        </div>
+
+        <div class="card">
+          <h2>Strava</h2>
+          <div class="row">
+            <button type="button" id="btn-strava">Connect Strava</button>
+            <label
+              >Days
+              <input type="number" id="strava-days" value="14" min="1" max="365" />
+            </label>
+            <button type="button" class="secondary" id="btn-sync-strava">Sync</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Recent imports</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Origin</th>
+              <th>Format</th>
+              <th>Start (UTC)</th>
+            </tr>
+          </thead>
+          <tbody id="imports-body"></tbody>
+        </table>
+        <div class="pager">
+          <button type="button" class="secondary" id="imports-prev">Previous</button>
+          <span id="imports-pager"></span>
+          <button type="button" class="secondary" id="imports-next">Next</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Merged activities</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Start (UTC)</th>
+              <th>Sport</th>
+              <th>Fields (provenance)</th>
+            </tr>
+          </thead>
+          <tbody id="activities-body"></tbody>
+        </table>
+        <div class="pager">
+          <button type="button" class="secondary" id="activities-prev">Previous</button>
+          <span id="activities-pager"></span>
+          <button type="button" class="secondary" id="activities-next">Next</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Drop FIT/GPX/TCX into the host <code>imports</code> folder, scan, then merge. Name iFit paths with
+      <code>ifit</code> for elevation preference.
+    </footer>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
